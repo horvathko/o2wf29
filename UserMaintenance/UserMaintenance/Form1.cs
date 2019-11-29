@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,9 +28,34 @@ namespace UserMaintenance
 
         private void button1_Click(object sender, EventArgs e)
         {
-            User u = new User() {FullName = label2.Text };
+            User u = new User() {FullName = textBox2.Text };
             users.Add(u);
         }
-        
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog of = new SaveFileDialog();
+
+            of.DefaultExt = "csv";
+            if (of.ShowDialog()==DialogResult.OK)
+            {
+                using (StreamWriter sw = new StreamWriter(of.FileName))
+                {
+
+                    for (int i = 0; i < users.Count(); i++)
+                    {
+                        sw.Write(users[i].ID);
+                        sw.Write(";");
+
+                        sw.Write(users[i].FullName);
+                        sw.WriteLine();
+
+                    }
+
+
+                }
+            }
+          
+        }
     }
 }
