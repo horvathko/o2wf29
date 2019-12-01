@@ -18,18 +18,20 @@ namespace UserMaintenance
         public Form1()
         {
             InitializeComponent();
-           
-            label2.Text = Resource1.LastName;
-            button1.Text = Resource1.Add;
             listBox1.DataSource = users;
             listBox1.ValueMember = "ID";
             listBox1.DisplayMember = "FullName";
+            label2.Text = Resource1.LastName;
+            button1.Text = Resource1.Add;
+            button2.Text = Resource1.Wirte;
+            button3.Text = Resource1.Delete;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             User u = new User() {FullName = textBox2.Text };
             users.Add(u);
+            
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -56,6 +58,21 @@ namespace UserMaintenance
                 }
             }
           
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            User u = new User();
+            u.ID =  Guid.Parse(listBox1.SelectedValue.ToString());
+            u.FullName = listBox1.SelectedItem.ToString();
+           
+            for (int i = 0; i < users.Count(); i++)
+            {
+                if (users[i].ID == u.ID)
+                {
+                    users.RemoveAt(i);
+                }
+            }
         }
     }
 }
